@@ -3,19 +3,14 @@ from setuptools import setup, find_packages
 import os
 import re
 
-with open(os.path.join("DrissionPage", "__init__.py"), "r", encoding="utf-8") as f:
-    version_match = re.search(r'^__version__\s*=\s*[\'"]([^\'"]*)[\'"]', f.read(), re.MULTILINE)
-    if version_match:
-        __version__ = version_match.group(1)
-    else:
-        raise RuntimeError("Unable to find version string.")
+
 
 with open("README.md", "r", encoding='utf-8') as fh:
     long_description = fh.read()
 
 setup(
     name="DrissionPage",
-    version=__version__,
+    version="4.1.17",
     author="g1879",
     author_email="g1879@qq.com",
     description="Python based web automation tool. It can control the browser and send and receive data packets.",
