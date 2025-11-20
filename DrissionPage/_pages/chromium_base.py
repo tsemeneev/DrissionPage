@@ -18,6 +18,9 @@ from .._base.base import BasePage
 from .._elements.chromium_element import run_js, make_chromium_eles
 from .._elements.none_element import NoneElement
 from .._elements.session_element import make_session_ele
+from .._functions.cloudflare import (bypass_if_detected as _cf_bypass,
+                                     get_bot_detected_by as _cf_get_opponent,
+                                     is_bot_detected_by_cloudflare as _cf_is_detected)
 from .._functions.cookies import CookiesList
 from .._functions.elements import SessionElementsList, get_frame, ChromiumElementsList
 from .._functions.locator import get_loc
@@ -620,6 +623,19 @@ class ChromiumBase(BasePage):
         locator = locator or 'xpath://*[name()="iframe" or name()="frame"]'
         frames = self._ele(locator, timeout=timeout, index=None, raise_err=False)
         return ChromiumElementsList(self, frames)
+
+    # ----------Cloudflare helpers----------
+    def is_bot_detected_by_cloudflare(self):
+        """Check whether Cloudflare has flagged the current page."""
+        return _cf_is_detected(self)
+
+    def get_bot_detected_by(self):
+        """Return the opponent enum if Cloudflare is currently blocking the page."""
+        return _cf_get_opponent(self)
+
+    def bypass_cloudflare(self):
+        """Attempt to solve the current Cloudflare challenge if present."""
+        return _cf_bypass(self)
 
     def session_storage(self, item=None):
         js = f'sessionStorage.getItem("{item}")' if item else 'sessionStorage'

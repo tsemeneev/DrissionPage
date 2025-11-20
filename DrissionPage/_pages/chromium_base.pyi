@@ -19,6 +19,7 @@ from .._base.chromium import Chromium
 from .._base.driver import Driver
 from .._elements.chromium_element import ChromiumElement
 from .._elements.session_element import SessionElement
+from .._functions.cloudflare import Opponent
 from .._functions.cookies import CookiesList
 from .._functions.elements import SessionElementsList, ChromiumElementsList
 from .._pages.chromium_frame import ChromiumFrame
@@ -507,6 +508,18 @@ class ChromiumBase(BasePage):
         :param timeout: 查找超时时间（秒）
         :return: ChromiumFrame对象组成的列表
         """
+        ...
+
+    def is_bot_detected_by_cloudflare(self) -> bool:
+        """Cloudflare是否正在拦截当前页面"""
+        ...
+
+    def get_bot_detected_by(self) -> Optional[Opponent]:
+        """返回当前检测到的对抗对象"""
+        ...
+
+    def bypass_cloudflare(self) -> bool:
+        """检测到Cloudflare时尝试自动解决"""
         ...
 
     def session_storage(self, item: str = None) -> Union[str, dict, None]:
