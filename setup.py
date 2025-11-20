@@ -1,6 +1,14 @@
 # -*- coding:utf-8 -*-
 from setuptools import setup, find_packages
-from DrissionPage import __version__
+import os
+import re
+
+with open(os.path.join("DrissionPage", "__init__.py"), "r", encoding="utf-8") as f:
+    version_match = re.search(r'^__version__\s*=\s*[\'"]([^\'"]*)[\'"]', f.read(), re.MULTILINE)
+    if version_match:
+        __version__ = version_match.group(1)
+    else:
+        raise RuntimeError("Unable to find version string.")
 
 with open("README.md", "r", encoding='utf-8') as fh:
     long_description = fh.read()
